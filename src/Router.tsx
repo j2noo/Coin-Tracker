@@ -5,11 +5,11 @@ function Router() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/">
-          <Coins></Coins>
-        </Route>
         <Route path="/:coinId">
           <Coin></Coin>
+        </Route>
+        <Route exact path="/">
+          <Coins></Coins>
         </Route>
       </Switch>
     </BrowserRouter>

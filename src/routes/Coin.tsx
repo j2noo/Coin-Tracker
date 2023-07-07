@@ -1,4 +1,15 @@
+import { useParams } from "react-router-dom";
+
+interface RouteParams {
+  coinId: string;
+}
+
 function Coin() {
-  return <h1>coin.tsx</h1>;
+  // const coinId = useParams<RouteParams>();
+  const {coinId} = useParams<RouteParams>();
+
+  console.log(coinId);
+  return <h1>coinid : {-coinId}</h1>;
+
 }
 export default Coin;
