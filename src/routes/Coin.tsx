@@ -9,7 +9,7 @@ function Coin() {
   const {coinId} = useParams<RouteParams>();
 
   console.log(coinId);
-  return <h1>coinid : {-coinId}</h1>;
+  return <h1>coinid : {coinId}</h1>;
 
 }
 export default Coin;
