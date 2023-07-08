@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, Route, Switch, useLocation, useParams, useRouteMatch } from "react-router-dom";
 import { styled } from "styled-components";
+import Price from "./Price";
+import Chart from "./Chart";
 
 interface RouteParams {
   coinId: string;
@@ -94,7 +96,9 @@ function Coin() {
   const { state } = useLocation<RouteState>();
   const [info, setInfo] = useState<InfoData>(); //ts는 info의타입을 빈 obj로 추론
   const [priceInfo, setPriceInfo] = useState<PriceData>();
-
+  const priceMatch = useRouteMatch("/:coinId/price");
+  const priceChart = useRouteMatch("/:coinId/chart");
+  console.log(priceMatch);
   useEffect(() => {
     (async () => {
       const infoData = await (await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)).json();
@@ -110,6 +114,18 @@ function Coin() {
         <Title>{state?.name || "Loading"}</Title>
       </Header>
       {loading ? <Loader>로딩 jung</Loader> : priceInfo?.quotes.USD.price}
+      <hr></hr>
+      <Link to={`/${coinId}/price`}>Price</Link>
+      <Link to={`/${coinId}/chart`}>Chart!</Link>
+
+      <Switch>
+        <Route path={`/${coinId}/price`}>
+          <Price></Price>
+        </Route>
+        <Route path={`/:coinId/chart`}>
+          <Chart></Chart>
+        </Route>
+      </Switch>
     </Container>
   );
 }
