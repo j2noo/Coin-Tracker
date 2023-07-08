@@ -4,8 +4,7 @@ import Router from "./Router";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
 /* http://meyerweb.com/eric/tools/css/reset/
    v5.0.1 | 20191019
    License: none (public domain)
@@ -60,12 +59,13 @@ table {
   border-spacing: 0;
 }
 body {
-  font-family: 'Noto Sans KR', sans-serif;
-  background-color: ${props => props.theme.bgColor};
-  color : ${props => props.theme.textColor};
+  font-family: 'Noto Sans KR', Arial, Helvetica, sans-serif;
+  background-color: ${(props) => props.theme.bgColor};
+  color : ${(props) => props.theme.textColor};
 }
 a {
   text-decoration: none;
+  color : inherit
 }
 `;
 function App() {
