@@ -22,8 +22,10 @@ const Coin = styled.li`
   border-radius: 15px;
   a {
     transition: color 0.2s ease-in;
-    display: block; //li의 끝까지 클릭
+    //display: block; //li의 끝까지 클릭
     padding: 20px; //역시 링크의 클릭 범위를 늘림
+    display: flex;
+    align-items: center;
   }
   &:hover {
     a {
@@ -36,7 +38,14 @@ const Title = styled.h1`
   font-size: 48px;
   color: ${(props) => props.theme.accentColor};
 `;
-
+const Loader = styled.span`
+  text-align: center;
+`;
+const Img = styled.img`
+  width: 3 5px;
+  height: 35px;
+  margin-right: 10px;
+`;
 interface CoinInterface {
   id: string;
   name: string;
@@ -63,12 +72,15 @@ function Coins() {
         <Title>코인</Title>
       </Header>
       {loading ? (
-        "Loading중..."
+        <Loader>로딩 jung</Loader>
       ) : (
         <CoinsList>
           {coins.map((coin) => (
             <Coin key={coin.id}>
-              <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
+              <Link to={{ pathname: `/${coin.id}`, state: { name: coin.name } }}>
+                <Img src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}></Img>
+                {coin.name} &rarr;
+              </Link>
             </Coin>
           ))}
         </CoinsList>
