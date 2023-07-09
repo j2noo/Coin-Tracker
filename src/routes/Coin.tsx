@@ -3,6 +3,8 @@ import { Link, Route, Switch, useLocation, useParams, useRouteMatch } from "reac
 import { styled } from "styled-components";
 import Price from "./Price";
 import Chart from "./Chart";
+import { useQuery } from "react-query";
+import { fetchCoinInfo, fetchCoinTickers } from "../api";
 
 interface RouteParams {
   coinId: string;
@@ -31,6 +33,49 @@ const Loader = styled.span`
   display: block;
 `;
 
+const Discription = styled.span``;
+const InfoBox = styled.div`
+  display: flex;
+  justify-content: center; //good
+  max-width: inherit;
+  background-color: ${(props) => props.theme.innerBgColor};
+  border-radius: 15px;
+  margin: 15px;
+  div {
+    padding: 10px 15px;
+    text-align: center;
+    & :first-child {
+      font-size: 12px;
+    }
+    & :nth-child(2) {
+    }
+  }
+`;
+const NavBox = styled.ul`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border: 2px solid black;
+  li {
+    float: left;
+    font-size: 30px;
+  }
+`;
+const NavItem = styled(Link)`
+  margin-right: 10px;
+  list-style-type: none;
+  text-decoration: none;
+  color: black;
+  &:hover {
+    color: red;
+  }
+`;
+const Rank = styled.div``;
+const Symbol = styled.div``;
+const Type = styled.div``;
+const HardwareWallet = styled.div``;
+const MaxSupply = styled.div``;
+const TotalSupply = styled.div``;
 interface InfoData {
   id: string;
   name: string;
@@ -92,31 +137,65 @@ interface PriceData {
 }
 function Coin() {
   const { coinId } = useParams<RouteParams>();
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const { state } = useLocation<RouteState>();
-  const [info, setInfo] = useState<InfoData>(); //ts는 info의타입을 빈 obj로 추론
-  const [priceInfo, setPriceInfo] = useState<PriceData>();
-  const priceMatch = useRouteMatch("/:coinId/price");
-  const priceChart = useRouteMatch("/:coinId/chart");
-  console.log(priceMatch);
-  useEffect(() => {
-    (async () => {
-      const infoData = await (await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)).json();
-      const priceData = await (await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)).json();
-      setInfo(infoData);
-      setPriceInfo(priceData);
-      setLoading(false);
-    })();
-  }, [coinId]);
+
+  const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(["info", coinId], () => fetchCoinInfo(coinId));
+  const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(["tickers", coinId], () => fetchCoinTickers(coinId));
+
+  console.log(infoData);
+  console.log(tickersData);
+
+  const loading = infoLoading || tickersLoading;
   return (
     <Container>
       <Header>
         <Title>{state?.name || "Loading"}</Title>
       </Header>
-      {loading ? <Loader>로딩 jung</Loader> : priceInfo?.quotes.USD.price}
-      <hr></hr>
-      <Link to={`/${coinId}/price`}>Price</Link>
-      <Link to={`/${coinId}/chart`}>Chart!</Link>
+      {loading ? (
+        <Loader>로딩 jung</Loader>
+      ) : (
+        <>
+          <InfoBox>
+            <Rank>
+              <div> Rank</div>
+              <div>{infoData?.rank}</div>
+            </Rank>
+            <Symbol>
+              <div> Symbol</div>
+              <div>{infoData?.symbol}</div>
+            </Symbol>
+            <Type>
+              <div> Coin Type</div>
+              <div>{infoData?.type}</div>
+            </Type>
+            <HardwareWallet>
+              <div>Hardware Wallet</div>
+              <div>{String(infoData?.hardware_wallet)}</div>
+            </HardwareWallet>
+          </InfoBox>
+          <Discription>{infoData?.description}</Discription>
+
+          <InfoBox>
+            <MaxSupply>
+              <div> Max Supply</div>
+              <div>{tickersData?.max_supply}</div>
+            </MaxSupply>
+            <TotalSupply>
+              <div> Total Supply</div>
+              <div>{tickersData?.total_supply}</div>
+            </TotalSupply>
+          </InfoBox>
+          <NavBox>
+            <NavItem to={`/${coinId}/price`}>
+              <li>Price</li>
+            </NavItem>
+            <NavItem to={`/${coinId}/chart`}>
+              <li>Chart</li>
+            </NavItem>
+          </NavBox>
+        </>
+      )}
 
       <Switch>
         <Route path={`/${coinId}/price`}>
