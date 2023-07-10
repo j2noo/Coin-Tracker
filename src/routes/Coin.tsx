@@ -61,11 +61,11 @@ const NavBox = styled.ul`
     font-size: 30px;
   }
 `;
-const NavItem = styled(Link)<{ isActive: boolean }>`
+const NavItem = styled(Link)`
   margin-right: 10px;
   list-style-type: none;
   text-decoration: none;
-  color: ${(props) => (props.isActive ? props.theme.accentColor : props.theme.textColor)};
+  color: black;
   &:hover {
     color: red;
   }
@@ -143,14 +143,10 @@ function Coin() {
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(["info", coinId], () => fetchCoinInfo(coinId));
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(["tickers", coinId], () => fetchCoinTickers(coinId));
 
+  console.log(infoData);
+  console.log(tickersData);
+
   const loading = infoLoading || tickersLoading;
-
-  const priceMatch = useRouteMatch("/:coinId/price");
-  const chartMatch = useRouteMatch("/:coinId/chart");
-
-  console.log(priceMatch);
-  console.log(chartMatch);
-
   return (
     <Container>
       <Header>
@@ -191,10 +187,10 @@ function Coin() {
             </TotalSupply>
           </InfoBox>
           <NavBox>
-            <NavItem to={`/${coinId}/price`} isActive={priceMatch !== null}>
+            <NavItem to={`/${coinId}/price`}>
               <li>Price</li>
             </NavItem>
-            <NavItem to={`/${coinId}/chart`} isActive={chartMatch !== null}>
+            <NavItem to={`/${coinId}/chart`}>
               <li>Chart</li>
             </NavItem>
           </NavBox>
