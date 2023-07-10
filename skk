@@ -1,0 +1,79 @@
+[33mcommit b92b9fe9a886ba67ebd84d9ae7c028dcce28f8ca[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: j2noo <wlsdndml213@naver.com>
+Date:   Tue Jul 11 00:13:15 2023 +0900
+
+    Revert "네비게이션 바 useRouteMatch 완성 - 테마토글삭제"
+    
+    This reverts commit fb0c618479702e3a7d4a6c174d38e378c61a0566.
+
+[33mcommit fb0c618479702e3a7d4a6c174d38e378c61a0566[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: j2noo <wlsdndml213@naver.com>
+Date:   Sun Jul 9 12:42:52 2023 +0900
+
+    네비게이션 바 useRouteMatch 완성
+
+[33mcommit 53c1d5cb43eaa8420eabd96346b83d70da60cf0b[m
+Author: j2noo <wlsdndml213@naver.com>
+Date:   Sun Jul 9 12:11:24 2023 +0900
+
+    nav box 구현
+
+[33mcommit 07e7045f7911aa5fb321be98a05846c3a09ce0d6[m
+Author: j2noo <wlsdndml213@naver.com>
+Date:   Sat Jul 8 22:20:05 2023 +0900
+
+    nested Route
+
+[33mcommit 9d5093a9646ed07ce5e8132d0af507a2e252a26f[m
+Author: j2noo <wlsdndml213@naver.com>
+Date:   Sat Jul 8 20:35:18 2023 +0900
+
+    Coin.tsx api 수신 확인
+
+[33mcommit 9dd5b65d98831cb6691995feb9250f98dd831f32[m
+Author: j2noo <wlsdndml213@naver.com>
+Date:   Sat Jul 8 15:32:03 2023 +0900
+
+    로딩
+
+[33mcommit 895513112ffe95d85d08b81ad7bdfc49c31497c6[m
+Author: j2noo <wlsdndml213@naver.com>
+Date:   Sat Jul 8 13:12:58 2023 +0900
+
+    폰트 설정
+
+[33mcommit b8ef75e7e7357d5c502a76f6c1afc85ed121ed59[m
+Author: j2noo <wlsdndml213@naver.com>
+Date:   Sat Jul 8 11:28:13 2023 +0900
+
+    styled reset
+
+[33mcommit cf3107b48fd15c8318985740ec21d55ac26ce759[m
+Author: j2noo <wlsdndml213@naver.com>
+Date:   Sat Jul 8 00:08:13 2023 +0900
+
+    라우터 params 오타 수정
+
+[33mcommit 06e6854e8431f3b9869c8ec19a70b666cd7427cb[m
+Author: j2noo <wlsdndml213@naver.com>
+Date:   Fri Jul 7 23:57:13 2023 +0900
+
+    gh-pages
+
+[33mcommit 52ddaf57897083bd3425655126032ff432dd9076[m
+Author: j2noo <wlsdndml213@naver.com>
+Date:   Fri Jul 7 23:53:39 2023 +0900
+
+    coin 및 coins 라우터 세팅
+
+[33mcommit 95a4fcf031d15652fe1c492613af6635a39c74dd[m
+Author: j2noo <wlsdndml213@naver.com>
+Date:   Fri Jul 7 22:56:42 2023 +0900
+
+    router, react-query, deps 설치
+
+[33mcommit c44cf76dc994ef9ab9b9ff166bb9183fb12ac34c[m
+Author: j2noo <wlsdndml213@naver.com>
+Date:   Fri Jul 7 21:41:34 2023 +0900
+
+    cra setup
