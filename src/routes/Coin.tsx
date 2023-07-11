@@ -150,10 +150,6 @@ function Coin() {
 
   const priceMatch = useRouteMatch("/:coinId/price");
   const chartMatch = useRouteMatch("/:coinId/chart");
-  console.log(infoData);
-  console.log(tickersData);
-  console.log(priceMatch);
-  console.log(chartMatch);
 
   const loading = infoLoading || tickersLoading;
   return (

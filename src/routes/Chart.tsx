@@ -18,42 +18,68 @@ interface IHistorical {
 
 function Chart({ coinId }: ChartProps) {
   const { isLoading, data } = useQuery<IHistorical[]>(["ohlcv", coinId], () => fetchCoinHistory(coinId));
+  //console.log(data?.map((d) => [d.time_open, [+d.open, +d.high, +d.low, +d.close]]));
+  const state = {
+    series: [
+      {
+        data:
+          data?.map((d) => ({
+            x: new Date(d.time_open),
+            y: [+d.open, +d.high, +d.low, +d.close],
+          })) || [],
+      },
+    ],
+    options: {
+      chart: {
+        type: "candlestick",
+        height: 350,
+      },
+      title: {
+        text: "CandleStick Chart",
+        align: "left",
+      },
+      xaxis: {
+        type: "datetime",
+      },
+      yaxis: {
+        tooltip: {
+          enabled: true,
+        },
+      },
+    },
+  };
+
   return (
     <div>
       {isLoading ? (
         "Loading Chart..."
       ) : (
         <ApexChart
-          type="line"
-          series={[{ name: "sales", data: data?.map((d) => Number(d.close)) ?? [] }]}
+          type="candlestick"
+          series={[
+      {
+        data:
+          data?.map((d) => ({
+            x: new Date(d.time_open),
+            y: [+d.open, +d.high, +d.low, +d.close],
+          })) || [],
+      },
+    ]}
           options={{
-            theme: {
-              mode: "dark",
-            },
             chart: {
-              height: 500,
-              width: 500,
-              toolbar: {
-                show: false,
-              },
-              background: "transparent",
+              type: "candlestick",
+              height: 350,
             },
-            grid: {
-              show: false,
+            title: {
+              text: "CandleStick Chart",
+              align: "left",
             },
-            yaxis: { show: false },
             xaxis: {
-              labels: { show: false },
-              categories: data?.map((val) => new Date(val.time_close * 1000).toUTCString()),
+              type: "datetime",
             },
-            stroke: {
-              curve: "smooth",
-            },
-            fill: { type: "gradient", gradient: { gradientToColors: ["blue"] } },
-            colors: ["red"],
-            tooltip: {
-              y: {
-                formatter: (val) => `$${val.toFixed(3)}`,
+            yaxis: {
+              tooltip: {
+                enabled: true,
               },
             },
           }}
