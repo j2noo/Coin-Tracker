@@ -70,6 +70,11 @@ const NavItem = styled(Link)<{ isActive: boolean }>`
     color: red;
   }
 `;
+const HomeButton = styled.button`
+  display: inline;
+  position: absolute;
+  top: 20px;
+`;
 const Rank = styled.div``;
 const Symbol = styled.div``;
 const Type = styled.div``;
@@ -157,6 +162,9 @@ function Coin() {
       <Helmet>
         <title>{state?.name ? state.name : loading ? "Loading" : infoData?.name}</title>
       </Helmet>
+      <HomeButton>
+        <Link to="/">코인 홈으로</Link>
+      </HomeButton>
       <Header>
         <Title>{state?.name ? state.name : loading ? "Loading" : infoData?.name}</Title>
       </Header>
