@@ -19,35 +19,7 @@ interface IHistorical {
 function Chart({ coinId }: ChartProps) {
   const { isLoading, data } = useQuery<IHistorical[]>(["ohlcv", coinId], () => fetchCoinHistory(coinId));
   //console.log(data?.map((d) => [d.time_open, [+d.open, +d.high, +d.low, +d.close]]));
-  const state = {
-    series: [
-      {
-        data:
-          data?.map((d) => ({
-            x: new Date(d.time_open),
-            y: [+d.open, +d.high, +d.low, +d.close],
-          })) || [],
-      },
-    ],
-    options: {
-      chart: {
-        type: "candlestick",
-        height: 350,
-      },
-      title: {
-        text: "CandleStick Chart",
-        align: "left",
-      },
-      xaxis: {
-        type: "datetime",
-      },
-      yaxis: {
-        tooltip: {
-          enabled: true,
-        },
-      },
-    },
-  };
+  console.log(data);
 
   return (
     <div>
@@ -57,14 +29,14 @@ function Chart({ coinId }: ChartProps) {
         <ApexChart
           type="candlestick"
           series={[
-      {
-        data:
-          data?.map((d) => ({
-            x: new Date(d.time_open),
-            y: [+d.open, +d.high, +d.low, +d.close],
-          })) || [],
-      },
-    ]}
+            {
+              data:
+                data?.map((d) => ({
+                  x: new Date(d.time_open),
+                  y: [+d.open, +d.high, +d.low, +d.close],
+                })) || [],
+            },
+          ]}
           options={{
             chart: {
               type: "candlestick",

@@ -17,7 +17,7 @@ const Header = styled.header`
 `;
 const CoinsList = styled.ul``;
 const Coin = styled.li`
-  background-color: white;
+  background-color: ${(props) => props.theme.innerBgColor};
   color: ${(props) => props.theme.textColor};
   //padding: 20px;
   margin-bottom: 10px;
@@ -66,6 +66,7 @@ function Coins() {
       </Helmet>
       <Header>
         <Title>코인 목록</Title>
+        <button >Toggle Mode</button>
       </Header>
       {isLoading ? (
         <Loader>로딩 jung</Loader>

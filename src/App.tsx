@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "./logo.svg";
 import Router from "./Router";
-import { createGlobalStyle } from "styled-components";
+import { ThemeProvider, createGlobalStyle } from "styled-components";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { darkTheme, lightTheme } from "./theme";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
@@ -63,18 +64,21 @@ body {
   font-family: 'Noto Sans KR', Arial, Helvetica, sans-serif;
   background-color: ${(props) => props.theme.bgColor};
   color : ${(props) => props.theme.textColor};
-}
+}   
 a {
   text-decoration: none;
   color : inherit
 }
 `;
 function App() {
+  const toggleDark = () => setIsDark((now) => !now);
   return (
     <>
-      <GlobalStyle></GlobalStyle>
-      <Router></Router>
-      <ReactQueryDevtools initialIsOpen={true}></ReactQueryDevtools>
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <GlobalStyle></GlobalStyle>
+        <Router></Router>
+        <ReactQueryDevtools initialIsOpen={true}></ReactQueryDevtools>
+      </ThemeProvider>
     </>
   );
 }
