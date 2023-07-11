@@ -61,11 +61,11 @@ const NavBox = styled.ul`
     font-size: 30px;
   }
 `;
-const NavItem = styled(Link)<{ isActive: boolean }>`
+const NavItem = styled(Link)<{ $isActive: boolean }>`
   margin-right: 10px;
   list-style-type: none;
   text-decoration: none;
-  color: ${(props) => (props.isActive ? props.theme.accentColor : props.theme.textColor)};
+  color: ${(props) => (props.$isActive ? props.theme.accentColor : props.theme.textColor)};
   &:hover {
     color: red;
   }
@@ -108,7 +108,7 @@ interface InfoData {
   first_data_at: string;
   last_data_at: string;
 }
-interface PriceData {
+export interface PriceData {
   id: string;
   name: string;
   symbol: string;
@@ -202,15 +202,15 @@ function Coin() {
               <div>{tickersData?.total_supply}</div>
             </TotalSupply>{" "}
             <PriceLive>
-              <div> Total Supply</div>
-              <div>{tickersData?.quotes.USD.price}</div>
+              <div> Price</div>
+              <div>{tickersData?.quotes.USD.price.toFixed(3)}</div>
             </PriceLive>
           </InfoBox>
           <NavBox>
-            <NavItem to={`/${coinId}/price`} isActive={priceMatch !== null}>
+            <NavItem to={`/${coinId}/price`} $isActive={priceMatch !== null}>
               <li>Price</li>
             </NavItem>
-            <NavItem to={`/${coinId}/chart`} isActive={chartMatch !== null}>
+            <NavItem to={`/${coinId}/chart`} $isActive={chartMatch !== null}>
               <li>Chart</li>
             </NavItem>
           </NavBox>
@@ -219,7 +219,7 @@ function Coin() {
 
       <Switch>
         <Route path={`/${coinId}/price`}>
-          <Price></Price>
+          {tickersLoading || !tickersData ? <div></div> : <Price priceData={tickersData}></Price>}
         </Route>
         <Route path={`/:coinId/chart`}>
           <Chart coinId={coinId}></Chart>
