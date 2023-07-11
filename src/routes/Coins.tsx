@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { useQuery } from "react-query";
 import { fetchCoins } from "../api";
 import { Helmet } from "react-helmet";
+import { useSetRecoilState } from "recoil";
+import { isDarkAtom } from "../atom";
 const Container = styled.div`
   padding: 0px 20px;
   max-width: 480px;
@@ -59,6 +61,7 @@ interface ICoin {
 }
 function Coins() {
   const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
+  const setterFn = useSetRecoilState(isDarkAtom);
   return (
     <Container>
       <Helmet>
@@ -66,7 +69,7 @@ function Coins() {
       </Helmet>
       <Header>
         <Title>코인 목록</Title>
-        <button >Toggle Mode</button>
+        <button onClick={() => setterFn(curr=>!curr)}>Toggle Mode</button>
       </Header>
       {isLoading ? (
         <Loader>로딩 jung</Loader>
