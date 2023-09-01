@@ -19,7 +19,9 @@ interface IHistorical {
 }
 
 function Chart({ coinId }: ChartProps) {
-  const { isLoading, data } = useQuery<IHistorical[]>(["ohlcv", coinId], () => fetchCoinHistory(coinId));
+  const { isLoading, data } = useQuery<IHistorical[]>(["ohlcv", coinId], () =>
+    fetchCoinHistory(coinId)
+  );
   const isDark = useRecoilValue(isDarkAtom);
   return (
     <div>
@@ -40,7 +42,7 @@ function Chart({ coinId }: ChartProps) {
           options={{
             chart: {
               type: "candlestick",
-              height: 350,
+              height: 351,
             },
             title: {
               text: "CandleStick Chart",
